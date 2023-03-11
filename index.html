@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>First Come First Serve</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.min.js"
+      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <style></style>
+
+  <body>
+    <!-- header page -->
+    <section id="home">
+      <div class="header_background">
+        <h1>First Come First Serve</h1>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="process">
+        <div class="process_btn">
+          <p>Process1</p>
+          <button id="p1" onclick="P(1)">Start</button>
+        </div>
+        <div class="process_btn">
+          <p>Process2</p>
+          <button id="p2" onclick="P(2)">Start</button>
+        </div>
+        <div class="process_btn">
+          <p>Process3</p>
+          <button id="p3" onclick="P(3)">Start</button>
+        </div>
+        <div class="process_btn">
+          <p>Process4</p>
+          <button id="p4" onclick="P(4)">Start</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-details">
+      <div class="details-table">
+        <h1>Process Table</h1>
+        <table>
+          <thead>
+            <th>Process</th>
+            <th>Arrival Time</th>
+            <th>Burst Time</th>
+          </thead>
+          <tbody>
+            <!-- Append Data Here Table -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="container-details">
+      <div class="details-chart_data">
+        <h1>Gant Chart</h1>
+        <div class="chart_column" id="column">
+          <!-- Append Data Here Gant Change -->
+        </div>
+      </div>
+      <div class="details-average_data">
+        <div class="turnaround">
+          <h3>Turn Around Time</h3>
+          <div class="turn" id="turn">
+            <!-- Data Append Here Turn Around Time -->
+          </div>
+          <div>
+            <h3 id="Total"></h3>
+            <h3 id="Average"></h3>
+          </div>
+        </div>
+        <div class="turnaround">
+          <h3>Waiting Time</h3>
+          <div class="turn" id="waiting">
+            <!-- Data Append Here Turn Around Time -->
+          </div>
+          <div>
+            <h3 id="Total_wait"></h3>
+            <h3 id="Average_wait"></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  $(function () {
+    setInterval(oneSecondFunction, 1000);
+    localStorage.removeItem("process");
+    localStorage.removeItem("burst");
+    localStorage.removeItem("total");
+  });
+  var count = 0;
+  function oneSecondFunction() {
+    count += 1;
+    localStorage.setItem("count", count);
+    var burst = Math.floor(Math.random() * 20) + 1;
+    localStorage.setItem("burst", burst);
+  }
+
+  function getdata() {
+    $("tbody").empty();
+    $("#column").empty();
+    $("#turn").empty();
+    $("#waiting").empty();
+    var process = localStorage.getItem("process");
+    process = JSON.parse(process);
+    var percent = 0;
+    var count = 0;
+    var wait = 0;
+    $.each(process, function (k, v) {
+      percent += parseFloat(v.Average);
+      wait += parseFloat(v.Waiting);
+      count += parseFloat(1);
+
+      $("tbody").append(
+        `
+          <tr>
+              <th>` +
+          v.name +
+          `</th>
+              <th>` +
+          v.AT +
+          `</th>
+              <th>` +
+          v.BT +
+          `</th>
+            </tr>
+        `
+      );
+      $("#column").append(
+        `
+        <div class="gant_chart">
+                <div class="chart">
+                  <h6>` +
+          v.name +
+          `</h6>
+                </div>
+                <div class="chart_burst">
+                    <p>` +
+          v.Total +
+          `</p>
+                </div>
+            </div>
+        `
+      );
+
+      $("#turn").append(`<span>` + v.name + ` - ` + v.Average + `</span>`);
+      $("#waiting").append(`<span>` + v.name + ` - ` + v.Waiting + `</span>`);
+    });
+
+    $("#Total").html("Total Turn Around Time:" + " " + percent);
+    $("#Average").html("Average Turn Around Time:" + " " + percent / count);
+
+    $("#Total_wait").html("Total Waiting Time:" + " " + wait);
+    $("#Average_wait").html("Average Waiting Time:" + " " + wait / count);
+  }
+
+  function P(data) {
+    var burst = localStorage.getItem("burst");
+    var process = localStorage.getItem("process");
+    localStorage.setItem("subtotal", burst);
+    //* Start of Process
+    if (process === "" || process === " " || process === null) {
+      var process = [];
+      if (data == 1) {
+        process.push({
+          name: "Process 1",
+          AT: 0,
+          BT: burst,
+          Total: burst,
+          Average: parseFloat(burst) - parseFloat(0),
+          Waiting: parseFloat(burst) - parseFloat(0) - parseFloat(burst),
+        });
+        document.getElementById("p1").style.display = "none";
+      }
+      if (data == 2) {
+        process.push({
+          name: "Process 2",
+          AT: 0,
+          BT: burst,
+          Total: burst,
+          Average: parseFloat(burst) - parseFloat(0),
+          Waiting: parseFloat(burst) - parseFloat(0) - parseFloat(burst),
+        });
+        document.getElementById("p2").style.display = "none";
+      }
+      if (data == 3) {
+        process.push({
+          name: "Process 3",
+          AT: 0,
+          BT: burst,
+          Total: burst,
+          Average: parseFloat(burst) - parseFloat(0),
+          Waiting: parseFloat(burst) - parseFloat(0) - parseFloat(burst),
+        });
+        document.getElementById("p3").style.display = "none";
+      }
+      if (data == 4) {
+        process.push({
+          name: "Process 4",
+          AT: 0,
+          BT: burst,
+          Total: burst,
+          Average: parseFloat(burst) - parseFloat(0),
+          Waiting: parseFloat(burst) - parseFloat(0) - parseFloat(burst),
+        });
+        document.getElementById("p4").style.display = "none";
+      }
+      localStorage.setItem("process", JSON.stringify(process));
+      $("tbody").empty();
+      $("#column").empty();
+      getdata();
+    } else {
+      var seconds = localStorage.getItem("count");
+      var burst = localStorage.getItem("burst");
+      process = JSON.parse(process);
+      var total = parseFloat(localStorage.getItem("subtotal"));
+      $.each(process, function (k, v) {
+        total += parseFloat(v.BT);
+        localStorage.setItem("total", total);
+      });
+      //* Adding of another item
+      console.log(localStorage.getItem("total"), seconds);
+      if (data == 1) {
+        process.push({
+          name: "Process 1",
+          AT: seconds,
+          BT: burst,
+          Total: localStorage.getItem("total"),
+          Average:
+            parseFloat(localStorage.getItem("total")) - parseFloat(seconds),
+          Waiting:
+            parseFloat(localStorage.getItem("total")) -
+            parseFloat(seconds) -
+            parseFloat(burst),
+        });
+        localStorage.setItem("process", JSON.stringify(process));
+        $("tbody").empty();
+        getdata();
+        document.getElementById("p1").style.display = "none";
+      }
+      if (data == 2) {
+        process.push({
+          name: "Process 2",
+          AT: seconds,
+          BT: burst,
+          Total: localStorage.getItem("total"),
+          Average:
+            parseFloat(localStorage.getItem("total")) - parseFloat(seconds),
+          Waiting:
+            parseFloat(localStorage.getItem("total")) -
+            parseFloat(seconds) -
+            parseFloat(burst),
+        });
+        localStorage.setItem("process", JSON.stringify(process));
+        $("tbody").empty();
+        getdata();
+        document.getElementById("p2").style.display = "none";
+      }
+      if (data == 3) {
+        process.push({
+          name: "Process 3",
+          AT: seconds,
+          BT: burst,
+          Total: localStorage.getItem("total"),
+          Average:
+            parseFloat(localStorage.getItem("total")) - parseFloat(seconds),
+          Waiting:
+            parseFloat(localStorage.getItem("total")) -
+            parseFloat(seconds) -
+            parseFloat(burst),
+        });
+        localStorage.setItem("process", JSON.stringify(process));
+        $("tbody").empty();
+        getdata();
+        document.getElementById("p3").style.display = "none";
+      }
+      if (data == 4) {
+        process.push({
+          name: "Process 4",
+          AT: seconds,
+          BT: burst,
+          Total: localStorage.getItem("total"),
+          Average:
+            parseFloat(localStorage.getItem("total")) - parseFloat(seconds),
+          Waiting:
+            parseFloat(localStorage.getItem("total")) -
+            parseFloat(seconds) -
+            parseFloat(burst),
+        });
+        localStorage.setItem("process", JSON.stringify(process));
+        $("tbody").empty();
+        getdata();
+        document.getElementById("p4").style.display = "none";
+      }
+    }
+  }
+</script>
