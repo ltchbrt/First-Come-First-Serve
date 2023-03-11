@@ -1,0 +1,141 @@
+* {
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  height: 100vh;
+}
+
+.header_background {
+  text-align: center;
+  font-size: 28px;
+  color: black;
+  border-bottom: 1px solid black;
+}
+
+.container {
+  height: 10%;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.container-details {
+  height: 30%;
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.process {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-bottom: 1px solid black;
+}
+
+.details-table {
+  width: 97%;
+  padding: 1rem;
+}
+
+.details-chart {
+  width: 50%;
+  padding: 1rem;
+}
+
+.details-chart_data {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 1rem;
+}
+
+.details-average_data {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  padding: 1rem;
+}
+
+.details-chart_data h1 {
+  margin-left: 8rem;
+}
+
+.process_btn {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.process_btn p {
+  font-size: 24px;
+}
+
+.process_btn button {
+  width: 81px;
+  height: 25px;
+  border-radius: 1rem;
+  background-color: green;
+  color: white;
+}
+
+.process_btn button:hover {
+  background-color: white;
+  color: black;
+}
+
+table {
+  width: 100%;
+}
+th {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.details-table h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.chart {
+  width: 80%;
+  height: 10%;
+  text-align: center;
+  border: 1px solid;
+  margin: 1rem;
+  padding: 0.5rem;
+}
+
+.chart_burst {
+  width: 119%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.chart_column {
+  width: 100%;
+  display: flex;
+}
+
+.turnaround {
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.turn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+}
