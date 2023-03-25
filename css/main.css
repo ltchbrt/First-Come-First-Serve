@@ -73,6 +73,22 @@ body {
   justify-content: center;
 }
 
+.burst_time {
+  display: flex;
+  margin: 10px;
+  gap: 10px;
+}
+
+.burst_time p {
+  font-size: 17px !important;
+}
+
+.burst_time input {
+  width: 82px;
+  height: 16px;
+  text-align: center;
+}
+
 .process_btn p {
   font-size: 24px;
 }

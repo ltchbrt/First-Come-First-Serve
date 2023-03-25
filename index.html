@@ -27,19 +27,43 @@
     <div class="container">
       <div class="process">
         <div class="process_btn">
-          <p>Process1</p>
+          <div>
+            <p>Process1</p>
+          </div>
+          <div class="burst_time">
+            <p>Burst Time</p>
+            <input type="text" id="burst1" value="" />
+          </div>
           <button id="p1" onclick="P(1)">Start</button>
         </div>
         <div class="process_btn">
-          <p>Process2</p>
+          <div>
+            <p>Process 2</p>
+          </div>
+          <div class="burst_time">
+            <p>Burst Time</p>
+            <input type="text" id="burst2" value="" />
+          </div>
           <button id="p2" onclick="P(2)">Start</button>
         </div>
         <div class="process_btn">
-          <p>Process3</p>
+          <div>
+            <p>Process 3</p>
+          </div>
+          <div class="burst_time">
+            <p>Burst Time</p>
+            <input type="text" id="burst3" value="" />
+          </div>
           <button id="p3" onclick="P(3)">Start</button>
         </div>
         <div class="process_btn">
-          <p>Process4</p>
+          <div>
+            <p>Process 4</p>
+          </div>
+          <div class="burst_time">
+            <p>Burst Time</p>
+            <input type="text" id="burst4" value="" />
+          </div>
           <button id="p4" onclick="P(4)">Start</button>
         </div>
       </div>
@@ -168,53 +192,81 @@
   }
 
   function P(data) {
-    var burst = localStorage.getItem("burst");
     var process = localStorage.getItem("process");
-    localStorage.setItem("subtotal", burst);
+
+    if (data == 1) {
+      localStorage.setItem("subtotal", $("#burst1").val());
+    }
+    if (data == 2) {
+      localStorage.setItem("subtotal", $("#burst2").val());
+    }
+    if (data == 3) {
+      localStorage.setItem("subtotal", $("#burst3").val());
+    }
+    if (data == 4) {
+      localStorage.setItem("subtotal", $("#burst4").val());
+    }
+
     //* Start of Process
     if (process === "" || process === " " || process === null) {
       var process = [];
       if (data == 1) {
+        localStorage.setItem("subtotal", $("#burst1").val());
         process.push({
           name: "Process 1",
           AT: 0,
-          BT: burst,
-          Total: burst,
-          Average: parseFloat(burst) - parseFloat(0),
-          Waiting: parseFloat(burst) - parseFloat(0) - parseFloat(burst),
+          BT: $("#burst1").val(),
+          Total: $("#burst1").val(),
+          Average: parseFloat($("#burst1").val()) - parseFloat(0),
+          Waiting:
+            parseFloat($("#burst1").val()) -
+            parseFloat(0) -
+            parseFloat($("#burst1").val()),
         });
         document.getElementById("p1").style.display = "none";
       }
       if (data == 2) {
+        localStorage.setItem("subtotal", $("#burst2").val());
         process.push({
           name: "Process 2",
           AT: 0,
-          BT: burst,
-          Total: burst,
-          Average: parseFloat(burst) - parseFloat(0),
-          Waiting: parseFloat(burst) - parseFloat(0) - parseFloat(burst),
+          BT: $("#burst2").val(),
+          Total: $("#burst2").val(),
+          Average: parseFloat($("#burst2").val()) - parseFloat(0),
+          Waiting:
+            parseFloat($("#burst2").val()) -
+            parseFloat(0) -
+            parseFloat($("#burst2").val()),
         });
         document.getElementById("p2").style.display = "none";
       }
       if (data == 3) {
+        localStorage.setItem("subtotal", $("#burst3").val());
         process.push({
           name: "Process 3",
           AT: 0,
-          BT: burst,
-          Total: burst,
-          Average: parseFloat(burst) - parseFloat(0),
-          Waiting: parseFloat(burst) - parseFloat(0) - parseFloat(burst),
+          BT: $("#burst3").val(),
+          Total: $("#burst3").val(),
+          Average: parseFloat($("#burst3").val()) - parseFloat(0),
+          Waiting:
+            parseFloat($("#burst3").val()) -
+            parseFloat(0) -
+            parseFloat($("#burst3").val()),
         });
         document.getElementById("p3").style.display = "none";
       }
       if (data == 4) {
+        localStorage.setItem("subtotal", $("#burst4").val());
         process.push({
           name: "Process 4",
           AT: 0,
-          BT: burst,
-          Total: burst,
-          Average: parseFloat(burst) - parseFloat(0),
-          Waiting: parseFloat(burst) - parseFloat(0) - parseFloat(burst),
+          BT: $("#burst4").val(),
+          Total: $("#burst4").val(),
+          Average: parseFloat($("#burst4").val()) - parseFloat(0),
+          Waiting:
+            parseFloat($("#burst4").val()) -
+            parseFloat(0) -
+            parseFloat($("#burst4").val()),
         });
         document.getElementById("p4").style.display = "none";
       }
@@ -224,7 +276,6 @@
       getdata();
     } else {
       var seconds = localStorage.getItem("count");
-      var burst = localStorage.getItem("burst");
       process = JSON.parse(process);
       var total = parseFloat(localStorage.getItem("subtotal"));
       $.each(process, function (k, v) {
@@ -237,14 +288,14 @@
         process.push({
           name: "Process 1",
           AT: seconds,
-          BT: burst,
+          BT: $("#burst1").val(),
           Total: localStorage.getItem("total"),
           Average:
             parseFloat(localStorage.getItem("total")) - parseFloat(seconds),
           Waiting:
             parseFloat(localStorage.getItem("total")) -
             parseFloat(seconds) -
-            parseFloat(burst),
+            parseFloat($("#burst1").val()),
         });
         localStorage.setItem("process", JSON.stringify(process));
         $("tbody").empty();
@@ -255,14 +306,14 @@
         process.push({
           name: "Process 2",
           AT: seconds,
-          BT: burst,
+          BT: $("#burst2").val(),
           Total: localStorage.getItem("total"),
           Average:
             parseFloat(localStorage.getItem("total")) - parseFloat(seconds),
           Waiting:
             parseFloat(localStorage.getItem("total")) -
             parseFloat(seconds) -
-            parseFloat(burst),
+            parseFloat($("#burst2").val()),
         });
         localStorage.setItem("process", JSON.stringify(process));
         $("tbody").empty();
@@ -273,14 +324,14 @@
         process.push({
           name: "Process 3",
           AT: seconds,
-          BT: burst,
+          BT: $("#burst3").val(),
           Total: localStorage.getItem("total"),
           Average:
             parseFloat(localStorage.getItem("total")) - parseFloat(seconds),
           Waiting:
             parseFloat(localStorage.getItem("total")) -
             parseFloat(seconds) -
-            parseFloat(burst),
+            parseFloat($("#burst3").val()),
         });
         localStorage.setItem("process", JSON.stringify(process));
         $("tbody").empty();
@@ -291,14 +342,14 @@
         process.push({
           name: "Process 4",
           AT: seconds,
-          BT: burst,
+          BT: $("#burst4").val(),
           Total: localStorage.getItem("total"),
           Average:
             parseFloat(localStorage.getItem("total")) - parseFloat(seconds),
           Waiting:
             parseFloat(localStorage.getItem("total")) -
             parseFloat(seconds) -
-            parseFloat(burst),
+            parseFloat($("#burst4").val()),
         });
         localStorage.setItem("process", JSON.stringify(process));
         $("tbody").empty();
